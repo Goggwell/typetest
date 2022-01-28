@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src",
-    "prettier:fix": "prettier --write",
+    "prettier:fix": "prettier --write .",
     "prettier:check": "prettier --check .",
     "prepare": "husky install"
   },
@@ -52,7 +52,8 @@
   },
   "lint-staged": {
     "src/*.{ts,tsx}": [
-      "yarn prettier:fix && yarn prettier:check",
+      "yarn prettier:fix",
+      "yarn prettier:check",
       "yarn lint"
     ]
   }

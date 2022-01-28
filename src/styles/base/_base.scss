@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  --bg-color: #191a1b;
+  --text-color: #e7eae0;
+  --main-color: #79a617;
+  --fg-color: #48494b;
+}
+
+button {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+  padding: 10px;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  margin: 10px;
+  cursor: pointer;
+
+  &.mini {
+    font-size: 12pt;
+    border: none;
+    padding: 5px;
+    margin: 0;
+    &.selected {
+      color: var(--main-color);
+    }
+  }
+
+  &:hover {
+    color: var(--main-color);
+    border-color: var(--main-color);
+  }
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.1s ease;
+
+  span {
+    font-size: smaller;
+    margin: 2.5px;
+  }
+
+  &:hover {
+    color: var(--main-color);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

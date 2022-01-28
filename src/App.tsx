@@ -11,7 +11,7 @@ interface State {
   typedHistory: string[];
 }
 
-export const App = () => {
+const App = () => {
   const wordList = words.sort(() => Math.random() - 0.5);
 
   const [currWord, setCurrWord] = useState<State['currWord']>(words[0]);
@@ -47,3 +47,5 @@ export const App = () => {
 
   return <></>;
 };
+
+export default App;
