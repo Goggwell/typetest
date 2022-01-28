@@ -7,6 +7,7 @@ import React, {
 import { words } from './assets/words.json';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Test from './components/Test';
 import Results from './components/Results';
 
 interface State {
@@ -169,7 +170,15 @@ const App = () => {
           changeTimeLimit={(newLimit: number) => changeTimeLimit(newLimit)}
         />
       ) : null}
-      {timer !== 0 ? null : (
+      {timer !== 0 ? (
+        <Test
+          words={wordList}
+          currWord={currWord}
+          typedWord={typedWord}
+          typedHistory={typedHistory}
+          timer={timer}
+        />
+      ) : (
         <Results
           words={wordList}
           typedHistory={typedHistory}
