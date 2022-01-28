@@ -1,6 +1,11 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from 'react';
 import { words } from './assets/words.json';
-import './App.scss';
+import Header from './components/Header';
 
 interface State {
   currWord: string;
@@ -21,22 +26,29 @@ const App = () => {
   const [timeLimit, setTimeLimit] = useState<State['timeLimit']>(60);
   const [typedHistory, setTypedHistory] = useState<State['typedHistory']>([]);
 
-  useLayoutEffect(() => {
-    if (timer === 0 && timeUp) {
+  const startTimer = useCallback(() => {
+    const intervalId = setInterval(() => {
+      setTimer(timer - 1);
+    }, 1000);
+    setTimeUp(intervalId);
+  }, [timer]);
+
+  const resetTest = useCallback(() => {
+    document
+      .querySelectorAll('.wrong, .right')
+      .forEach((el) => el.classList.remove('wrong', 'right'));
+    if (timeUp) {
       clearInterval(timeUp);
-      setTimeUp(null);
     }
-  }, [timer, timeUp]);
+    setTimer(timeLimit);
+    setCurrWord(wordList[0]);
+    setTypedWord('');
+    setTimeUp(null);
+    setTypedHistory([]);
+  }, [timeLimit, timeUp, wordList]);
 
-  useEffect(() => {
-    const startTimer = () => {
-      const intervalId = setInterval(() => {
-        setTimer(timer - 1);
-      }, 1000);
-      setTimeUp(intervalId);
-    };
-
-    const recordTest = (e: KeyboardEvent) => {
+  const recordTest = useCallback(
+    (e: KeyboardEvent) => {
       if (timer === 0) {
         if (e.key === 'Tab') {
           resetTest();
@@ -45,22 +57,23 @@ const App = () => {
         return;
       }
       if (timeUp === null && e.key !== 'Tab') startTimer();
-    };
+    },
+    [resetTest, startTimer, timeUp, timer]
+  );
 
-    const resetTest = () => {
-      document
-        .querySelectorAll('.wrong, .right')
-        .forEach((el) => el.classList.remove('wrong', 'right'));
-      if (timeUp) {
-        clearInterval(timeUp);
-      }
-      setTimer(timeLimit);
-      setCurrWord(wordList[0]);
-      setTypedWord('');
+  const changeTimeLimit = (newLimit: number) => {
+    setTimeLimit(newLimit);
+    resetTest();
+  };
+
+  useLayoutEffect(() => {
+    if (timer === 0 && timeUp) {
+      clearInterval(timeUp);
       setTimeUp(null);
-      setTypedHistory([]);
-    };
+    }
+  }, [timer, timeUp]);
 
+  useEffect(() => {
     const time = parseInt(localStorage.getItem('time') || '60', 10);
     setTimer(time);
     setTimeLimit(time);
@@ -72,9 +85,17 @@ const App = () => {
     return () => {
       window.onkeydown = null;
     };
-  }, [timeUp, timer, timeLimit, wordList]);
+  }, [recordTest]);
 
-  return <></>;
+  return (
+    <>
+      {!timeUp ? (
+        <Header
+          changeTimeLimit={(newLimit: number) => changeTimeLimit(newLimit)}
+        />
+      ) : null}
+    </>
+  );
 };
 
 export default App;
