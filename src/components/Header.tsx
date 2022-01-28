@@ -20,7 +20,7 @@ const Header = (props: Props) => {
     const time = parseInt(localStorage.getItem('time') || '60', 10);
     document.body.children[1].classList.add(theme);
     const selectedElements = document.querySelectorAll(
-      `button[value="${theme}"], button[value="${time}]`
+      `button[value=${theme}], button[value="${time}"]`
     );
     selectedElements.forEach((el) => {
       el.classList.add('selected');
