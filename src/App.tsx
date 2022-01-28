@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import { words } from './assets/words.json';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 interface State {
   currWord: string;
@@ -167,6 +168,7 @@ const App = () => {
           changeTimeLimit={(newLimit: number) => changeTimeLimit(newLimit)}
         />
       ) : null}
+      {!setTimer ? <Footer /> : null}
     </>
   );
 };
