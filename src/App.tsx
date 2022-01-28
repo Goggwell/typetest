@@ -7,6 +7,7 @@ import React, {
 import { words } from './assets/words.json';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Results from './components/Results';
 
 interface State {
   currWord: string;
@@ -168,6 +169,15 @@ const App = () => {
           changeTimeLimit={(newLimit: number) => changeTimeLimit(newLimit)}
         />
       ) : null}
+      {timer !== 0 ? null : (
+        <Results
+          words={wordList}
+          typedHistory={typedHistory}
+          timeLimit={timeLimit}
+          spaces={wordList.indexOf(currWord)}
+          resetTest={() => resetTest()}
+        />
+      )}
       {!setTimer ? <Footer /> : null}
     </>
   );
