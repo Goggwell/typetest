@@ -7,7 +7,10 @@ interface Options {
 
 const options: Options = {
   time: [15, 30, 45, 60, 120],
-  theme: ['default'],
+  theme: [
+    'default',
+    'dark'
+  ],
 };
 
 interface Props {
@@ -27,7 +30,7 @@ const Header = (props: Props) => {
     });
   }, []);
 
-  const handleOptions = (target: React.MouseEvent) => {
+  const handleOptions = ({ target }: React.MouseEvent) => {
     if (target instanceof HTMLButtonElement && target.dataset.option) {
       switch (target.dataset.option) {
         case 'theme':
