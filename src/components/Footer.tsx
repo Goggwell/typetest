@@ -23,7 +23,7 @@ interface Contributor {
 }
 
 interface State {
-  contributors: Contributor[] | [];
+  contributors: [Contributor] | Contributor[] | [];
   showList: boolean;
 }
 
@@ -42,12 +42,13 @@ const Footer = () => {
       );
       const data: [Contributor] = await res.json();
       const filtered = data.filter(
-        (contributor) => contributor.login !== 'goggwell'
+        (contributor) => contributor.login
       );
       setContributors(filtered);
+      console.log(filtered);
     };
     contributorsList();
-  }, [contributors.length]);
+  }, []);
 
   return (
     <div className='bottom-area'>

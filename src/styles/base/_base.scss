@@ -29,6 +29,8 @@ body {
   --text-color: #e7eae0;
   --main-color: #79a617;
   --fg-color: #48494b;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 }
 
 button {
