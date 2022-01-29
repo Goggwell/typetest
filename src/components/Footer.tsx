@@ -41,9 +41,7 @@ const Footer = () => {
         'https://api.github.com/repos/Goggwell/typetest/contributors'
       );
       const data: [Contributor] = await res.json();
-      const filtered = data.filter(
-        (contributor) => contributor.login
-      );
+      const filtered = data.filter((contributor) => contributor.login);
       setContributors(filtered);
       console.log(filtered);
     };
